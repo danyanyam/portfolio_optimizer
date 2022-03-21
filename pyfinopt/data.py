@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Set, Dict, Iterable
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -90,6 +90,7 @@ class Portfolio:
 
     def set_weights(self, weights: Dict[str, float]):
         assert set(self.tickers) == set(weights)
+        self.weights = weights
         self._params = np.array(list(weights.values()))
 
     def __iter__(self):

@@ -9,7 +9,7 @@ class BaseOptimizer:
         self._init_weights = np.random.random(size=len(portfolio)).reshape(-1, 1)
         self._portfolio = portfolio
         self._normalized = 1 / len(self._init_weights) * np.ones(self._init_weights.shape)
-        self._optim_weights = {}
+        self._weights = {}
         self.params = None
 
     def target(self):
@@ -32,10 +32,10 @@ class BaseOptimizer:
         )
 
     def optimize(self, short_allowed: bool = False):
-        self.params = None
+        self._params = None
         results = self.minimize(short_allowed)
-        self.params = results['x']
-        return dict(zip(self._portfolio.tickers, self.params))
+        self._params = results['x']
+        self.weights = dict(zip(self._portfolio.tickers, self._params))
 
 
 class VolatilityOptimizer(BaseOptimizer):
