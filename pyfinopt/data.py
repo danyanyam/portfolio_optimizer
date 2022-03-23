@@ -226,12 +226,9 @@ class Portfolio:
         return iter(self.stocks.items())
 
     def __getitem__(self, key: str) -> Stock:
-        try:
-            assert key in self.tickers
-        except AssertionError:
+        if key not in self.tickers:
             raise Exception(f'Ticker {key} doesnt exist in portfolio.'
                             f'Possible tickers: {self.tickers}')
-
         return self.stocks[key]
 
     def __len__(self) -> int:
